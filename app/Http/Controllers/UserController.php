@@ -51,7 +51,7 @@ class UserController extends Controller
 
         if ($user) {
             Auth::login($user);
-            Mail::to($user)->send(new ConfirmationMail($conf_token));
+            Mail::to($request->user())->send(new ConfirmationMail($conf_token));
             return redirect('/user/confirm');
         } else {
             return redirect()->back();
