@@ -52,7 +52,7 @@ class UserController extends Controller
         if ($user) {
             Auth::login($user);
             Mail::to($request->user())->send(new ConfirmationMail($conf_token));
-            return redirect('/user/confirm');
+            return redirect('/user/profile');
         } else {
             return redirect()->back();
         }
