@@ -25,13 +25,13 @@ Route::post('/user/register', 'UserController@postRegister');
 
 Route::get('/test-mail', 'UserController@getTestMail');
 
-Route::get('/user/confirm', 'UserController@getConfirm');
 
-Route::group(['middleware' => 'auth'], function () {
+Route::group(['middleware' => ['auth', 'accountConfirmation']], function () {
     Route::get('/user/profile', 'UserController@getProfile');
     Route::post('/user/profile', 'UserController@postEditProfile');
     Route::post('/user/profile/change-password', 'UserController@postChangePassword');
 
+    Route::get('/user/confirm', 'UserController@getConfirm');
     Route::get('/user/confirm/{confirmation_token}', 'UserController@getConfirmationAccount');
 
     Route::get('/messages', 'MessageController@showMessages');
