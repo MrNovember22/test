@@ -17,7 +17,6 @@ class AccountConfirmation
     public function handle($request, Closure $next)
     {
         $user = Auth::user();
-        if ($user) {
             if ($user->status_id === 0)
             {
                 return redirect('/user/confirm');
@@ -25,7 +24,5 @@ class AccountConfirmation
                 {
                     return $next($request);
                 }
-        }
-        return $next($request);
     }
 }
