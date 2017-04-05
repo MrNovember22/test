@@ -66,12 +66,7 @@ class UserController extends Controller
 
     public function getProfile()
     {
-        $user = Auth::user();
-        if ($user) {
-            return view('user.profile');
-        } else {
-            return redirect('/user/login');
-        }
+        return view('user.profile');
     }
 
     public function postEditProfile(Request $request)
@@ -100,12 +95,7 @@ class UserController extends Controller
 
     public function getConfirm()
     {
-        $user = Auth::user();
-        if ($user) {
-            return view('user.confirm');
-        } else {
-            return redirect('/user/login');
-        }
+        return view('user.confirm');
     }
 
     public function getConfirmationAccount($confirmation_token)
