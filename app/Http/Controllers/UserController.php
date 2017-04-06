@@ -80,7 +80,6 @@ class UserController extends Controller
 
     public function postChangePassword(ChangePasswordRequest $request)
     {
-        $input = $request->all();
         $user = Auth::user();
         $user->password = bcrypt($request->password);
         $user->save();
