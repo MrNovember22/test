@@ -29,6 +29,6 @@ class UserMessage
             return $next($request);
         }
 
-        abort(404, 'Page Does Not Exists');
+        abort(404, 'Page Does Not Exist');
     }
 }
