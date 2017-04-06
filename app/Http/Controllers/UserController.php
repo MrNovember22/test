@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ChangePasswordRequest;
 use App\Mail\ConfirmationMail;
 use App\Mail\Test;
 use App\User;
@@ -18,10 +19,9 @@ class UserController extends Controller
 
     public function postLogin(Request $request)
     {
-        $input = $request->all();
         $attempt = Auth::attempt([
-            'email' => $input['email'],
-            'password' => $input['password'],
+            'email' => $request->email,
+            'password' => $request->password,
         ]);
 
         if ($attempt) {
@@ -38,13 +38,12 @@ class UserController extends Controller
 
     public function postRegister(Request $request)
     {
-        $input = $request->all();
         $conf_token = md5(time(). random_int(1, 100000));
 
         $user = new User();
-        $user->name = $input['name'];
-        $user->email = $input['email'];
-        $user->password = bcrypt($input['password']);
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->password = bcrypt($request->password);
         $user->status_id = 0;
         $user->confirmation_token = $conf_token;
         $user->save();
@@ -66,24 +65,24 @@ class UserController extends Controller
 
     public function getProfile()
     {
-        return view('user.profile');
+        $user = Auth::user();
+        return view('user.profile', ['user' => $user]);
     }
 
     public function postEditProfile(Request $request)
     {
-        $input = $request->all();
         $user = Auth::user();
-        $user->name = $input['name'];
-        $user->email = $input['email'];
+        $user->name = $request->name;
+        $user->email = $request->email;
         $user->save();
         return redirect()->back();
     }
 
-    public function postChangePassword(Request $request)
+    public function postChangePassword(ChangePasswordRequest $request)
     {
         $input = $request->all();
         $user = Auth::user();
-        $user->password = bcrypt($input['password']);
+        $user->password = bcrypt($request->password);
         $user->save();
         return redirect()->back();
     }
