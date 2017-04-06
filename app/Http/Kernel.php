@@ -41,9 +41,6 @@ class Kernel extends HttpKernel
             'bindings',
         ],
 
-        'auth' => [
-            \App\Http\Middleware\AccountConfirmation::class,
-        ],
     ];
 
     /**
@@ -61,5 +58,6 @@ class Kernel extends HttpKernel
         'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'message' => \App\Http\Middleware\UserMessage::class,
+        'accountConfirmation' => \App\Http\Middleware\AccountConfirmation::class,
     ];
 }
